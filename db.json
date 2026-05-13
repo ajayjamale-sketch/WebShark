@@ -1,0 +1,296 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "WebShark Admin",
+      "email": "admin@webshark.ai",
+      "password": "admin123",
+      "workspace": "WebShark HQ",
+      "role": "admin"
+    },
+    {
+      "id": "u2",
+      "name": "Maya Freeman",
+      "email": "maya@northstar.com",
+      "password": "maya123",
+      "workspace": "Northstar Commerce",
+      "role": "member"
+    }
+  ],
+  "websites": [
+    {
+      "id": "1",
+      "workspaceId": "w1",
+      "url": "https://webshark.ai",
+      "name": "WebShark Main Site",
+      "seoScore": 86,
+      "health": 92,
+      "performance": 79,
+      "uptime": 99.96
+    },
+    {
+      "id": "2",
+      "workspaceId": "w2",
+      "url": "https://northstarcommerce.com",
+      "name": "Northstar Commerce",
+      "seoScore": 81,
+      "health": 89,
+      "performance": 76,
+      "uptime": 99.91
+    }
+  ],
+  "audits": [
+    {
+      "id": "1",
+      "websiteId": 1,
+      "status": "completed",
+      "submittedUrl": "https://webshark.ai",
+      "createdAt": "2026-05-12T09:21:00.000Z",
+      "scores": {
+        "seo": 88,
+        "brokenLinks": 64,
+        "mobile": 91,
+        "accessibility": 79,
+        "performance": 74,
+        "coreWebVitals": 83
+      },
+      "issues": [
+        {
+          "id": "i1",
+          "issue": "Missing H1 tag on /features",
+          "severity": "High",
+          "recommendation": "Add one descriptive H1 tag"
+        },
+        {
+          "id": "i2",
+          "issue": "Broken link found in footer",
+          "severity": "Medium",
+          "recommendation": "Update footer link destination"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "websiteId": 2,
+      "status": "running",
+      "submittedUrl": "https://northstarcommerce.com",
+      "createdAt": "2026-05-12T10:05:00.000Z",
+      "progress": 68
+    },
+    {
+      "submittedUrl": "https://webshark.ai",
+      "status": "completed",
+      "createdAt": "2026-05-12T10:15:44.821Z",
+      "scores": {
+        "seo": 88,
+        "mobile": 91,
+        "accessibility": 79,
+        "performance": 74,
+        "coreWebVitals": 83,
+        "brokenLinks": 64
+      },
+      "id": "2SrspjQAMcE"
+    }
+  ],
+  "keywords": [
+    {
+      "id": "1",
+      "websiteId": 1,
+      "keyword": "website intelligence platform",
+      "volume": 7400,
+      "difficulty": 68,
+      "position": 4,
+      "trend": "up"
+    },
+    {
+      "id": "2",
+      "websiteId": 1,
+      "keyword": "ai seo auditing software",
+      "volume": 2300,
+      "difficulty": 59,
+      "position": 7,
+      "trend": "up"
+    },
+    {
+      "id": "3",
+      "websiteId": 1,
+      "keyword": "core web vitals dashboard",
+      "volume": 4200,
+      "difficulty": 53,
+      "position": 6,
+      "trend": "up"
+    }
+  ],
+  "competitors": [
+    {
+      "id": "1",
+      "websiteId": 1,
+      "domain": "rankpilot.io",
+      "authority": 78,
+      "traffic": 421000,
+      "keywords": 4900,
+      "backlinks": 31000
+    },
+    {
+      "id": "2",
+      "websiteId": 1,
+      "domain": "marketzen.ai",
+      "authority": 73,
+      "traffic": 358400,
+      "keywords": 4300,
+      "backlinks": 24800
+    },
+    {
+      "id": "3",
+      "websiteId": 1,
+      "domain": "crawlforge.com",
+      "authority": 69,
+      "traffic": 299000,
+      "keywords": 3810,
+      "backlinks": 21700
+    }
+  ],
+  "reports": [
+    {
+      "id": "1",
+      "workspaceId": "w1",
+      "title": "Monthly Growth Performance",
+      "type": "traffic",
+      "generatedAt": "2026-05-10",
+      "status": "ready"
+    },
+    {
+      "id": "2",
+      "workspaceId": "w1",
+      "title": "Technical SEO Deep Audit",
+      "type": "audit",
+      "generatedAt": "2026-05-08",
+      "status": "ready"
+    },
+    {
+      "id": "3",
+      "workspaceId": "w2",
+      "title": "Competitor Gap Snapshot",
+      "type": "competition",
+      "generatedAt": "2026-05-05",
+      "status": "processing"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "1",
+      "workspaceId": "w1",
+      "title": "Downtime spike prevented",
+      "message": "Auto fallback region activated for 2 minutes.",
+      "priority": "high",
+      "read": false,
+      "createdAt": "2026-05-12T08:42:00.000Z"
+    },
+    {
+      "id": "2",
+      "workspaceId": "w1",
+      "title": "New backlink opportunity",
+      "message": "3 high-authority domains mention your brand.",
+      "priority": "medium",
+      "read": false,
+      "createdAt": "2026-05-12T07:10:00.000Z"
+    },
+    {
+      "id": "3",
+      "workspaceId": "w2",
+      "title": "Subscription renewal",
+      "message": "Growth plan renews on May 30, 2026.",
+      "priority": "low",
+      "read": true,
+      "createdAt": "2026-05-10T12:00:00.000Z"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "1",
+      "workspaceId": "w1",
+      "plan": "Growth",
+      "monthlyPrice": 89,
+      "yearlyPrice": 890,
+      "status": "active",
+      "usage": {
+        "audits": 742,
+        "auditLimit": 1200,
+        "keywords": 3220,
+        "keywordLimit": 5000
+      }
+    },
+    {
+      "id": "2",
+      "workspaceId": "w2",
+      "plan": "Starter",
+      "monthlyPrice": 39,
+      "yearlyPrice": 390,
+      "status": "active",
+      "usage": {
+        "audits": 221,
+        "auditLimit": 300,
+        "keywords": 1210,
+        "keywordLimit": 1500
+      }
+    }
+  ],
+  "integrations": [
+    {
+      "id": "1",
+      "workspaceId": "w1",
+      "name": "Google Analytics",
+      "connected": true,
+      "lastSynced": "2026-05-12T10:11:00.000Z"
+    },
+    {
+      "id": "2",
+      "workspaceId": "w1",
+      "name": "Google Search Console",
+      "connected": true,
+      "lastSynced": "2026-05-12T10:05:00.000Z"
+    },
+    {
+      "id": "3",
+      "workspaceId": "w1",
+      "name": "WordPress",
+      "connected": false,
+      "lastSynced": null
+    }
+  ],
+  "leads": [
+    {
+      "id": "1",
+      "workspaceId": "w1",
+      "company": "Orbit Stack",
+      "email": "growth@orbitstack.com",
+      "source": "Organic",
+      "score": 82,
+      "status": "Qualified"
+    },
+    {
+      "id": "2",
+      "workspaceId": "w1",
+      "company": "Revstream Labs",
+      "email": "hello@revstream.io",
+      "source": "Paid Ads",
+      "score": 69,
+      "status": "Contacted"
+    }
+  ],
+  "workspaces": [
+    {
+      "id": "w1",
+      "name": "WebShark HQ",
+      "owner": "WebShark Admin",
+      "members": 16
+    },
+    {
+      "id": "w2",
+      "name": "Northstar Commerce",
+      "owner": "Maya Freeman",
+      "members": 8
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
