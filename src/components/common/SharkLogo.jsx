@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const SharkLogo = ({ className = "h-10 w-10", animated = false }) => {
+const SharkLogo = ({ className = "h-10 w-10", animated = false, hideText = false }) => {
   return (
     <div className={`relative flex items-center gap-3 ${className}`}>
       <motion.div
@@ -31,9 +31,11 @@ const SharkLogo = ({ className = "h-10 w-10", animated = false }) => {
         </svg>
       </motion.div>
       
-      <span className="font-display text-2xl font-bold tracking-tighter text-foreground hidden sm:block uppercase">
-        Web<span className="text-primary-blue">Shark</span>
-      </span>
+      {!hideText && (
+        <span className="font-display text-2xl font-bold tracking-tighter text-foreground hidden sm:block uppercase">
+          Web<span className="text-primary-blue">Shark</span>
+        </span>
+      )}
     </div>
   );
 };

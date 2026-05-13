@@ -109,39 +109,39 @@ export default function LandingPage() {
                 </div>
               </motion.div>
               
-              <motion.h1 variants={fadeUp} className='font-display text-5xl font-black leading-[1.0] lg:text-[120px] tracking-tighter text-white mb-12 uppercase italic drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]'>
+              <motion.h1 variants={fadeUp} className='font-display text-4xl sm:text-5xl font-black leading-[1.0] lg:text-[120px] tracking-tighter text-white mb-8 lg:mb-12 uppercase italic drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]'>
                 Precision <span className="text-primary-blue not-italic">Intelligence.</span><br />
                 <span className="text-white/60">Aggressive</span> Growth.
               </motion.h1>
 
-              <motion.p variants={fadeUp} className='mt-8 max-w-2xl mx-auto text-lg lg:text-xl text-white/70 leading-relaxed font-light tracking-wide drop-shadow-md'>
+              <motion.p variants={fadeUp} className='mt-8 max-w-2xl mx-auto text-base sm:text-lg lg:text-xl text-white/70 leading-relaxed font-light tracking-wide drop-shadow-md px-4'>
                 Unify your technical telemetry, market intelligence, and tactical AI recommendations into a single, high-dimensional command center.
               </motion.p>
 
-              <motion.div variants={fadeUp} className='mt-16 flex flex-wrap justify-center gap-4'>
-                <Link to='/signup'>
-                  <button className="group relative px-12 py-6 bg-primary-blue text-white overflow-hidden transition-all hover:bg-primary-blue/90 border border-primary-blue shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_40px_rgba(37,99,235,0.5)]">
+              <motion.div variants={fadeUp} className='mt-12 lg:mt-16 flex flex-col sm:flex-row justify-center items-center gap-4'>
+                <Link to='/signup' className="w-full sm:w-auto">
+                  <button className="w-full group relative px-8 lg:px-12 py-5 lg:py-6 bg-primary-blue text-white overflow-hidden transition-all hover:bg-primary-blue/90 border border-primary-blue shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_40px_rgba(37,99,235,0.5)]">
                      <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                     <span className="relative z-10 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em]">
+                     <span className="relative z-10 flex items-center justify-center gap-3 text-[10px] lg:text-[11px] font-black uppercase tracking-[0.3em]">
                        Authorize Operation <ArrowRight className='h-4 w-4 transition-transform group-hover:translate-x-1' />
                      </span>
                   </button>
                 </Link>
-                <Link to='/app/dashboard'>
-                  <button className="px-12 py-6 bg-white/5 backdrop-blur-md text-white transition-all border border-white/20 hover:bg-white/10 hover:border-white/40 text-[11px] font-black uppercase tracking-[0.3em]">
+                <Link to='/app/dashboard' className="w-full sm:w-auto">
+                  <button className="w-full px-8 lg:px-12 py-5 lg:py-6 bg-white/5 backdrop-blur-md text-white transition-all border border-white/20 hover:bg-white/10 hover:border-white/40 text-[10px] lg:text-[11px] font-black uppercase tracking-[0.3em]">
                      Watch Telemetry
                   </button>
                 </Link>
               </motion.div>
 
               {/* Stats Row */}
-              <motion.div variants={fadeUp} className='mt-32 grid grid-cols-2 md:grid-cols-4 gap-12 pt-16 border-t border-border relative'>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 bg-background text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">Network Load Balance</div>
+              <motion.div variants={fadeUp} className='mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 pt-12 lg:pt-16 border-t border-border relative'>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 bg-background text-[8px] lg:text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 whitespace-nowrap">Network Load Balance</div>
                 {[
-                  { label: 'Intelligence Nodes', value: 12500, suffix: '+' },
-                  { label: 'Tactical Efficiency', value: 34, suffix: '%' },
-                  { label: 'Market Vectors', value: 2.1, suffix: 'M' },
-                  { label: 'Node Availability', value: 99.9, suffix: '%' },
+                  { label: 'Intel Nodes', value: 12500, suffix: '+' },
+                  { label: 'Tactical Eff.', value: 34, suffix: '%' },
+                  { label: 'Vectors', value: 2.1, suffix: 'M' },
+                  { label: 'Availability', value: 99.9, suffix: '%' },
                 ].map((item) => (
                   <div key={item.label} className="group text-center">
                     <p className='font-display text-4xl lg:text-5xl font-black text-foreground mb-3 tracking-tighter'>

@@ -9,9 +9,10 @@ import { OnboardingTour } from '../components/common/OnboardingTour'
 import { Sidebar } from '../components/dashboard/Sidebar'
 import { TopNavbar } from '../components/dashboard/TopNavbar'
 import { Button } from '../components/ui/button'
+import SharkLogo from '../components/common/SharkLogo'
+import { cn } from '../utils/cn'
 
 export function AppLayout() {
-  const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { setIsCommandOpen } = useAppContext()
   const location = useLocation()
@@ -28,42 +29,67 @@ export function AppLayout() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [setIsCommandOpen])
 
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location.pathname])
+
   return (
-    <div className='min-h-screen lg:flex bg-background text-foreground'>
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+    <div className='min-h-screen lg:flex bg-background text-foreground selection:bg-primary-blue/30'>
+      <Sidebar />
 
-      {mobileOpen ? (
-        <div className='fixed inset-0 z-40 bg-slate-900/50 lg:hidden' onClick={() => setMobileOpen(false)} />
-      ) : null}
-      <aside
-        className={`fixed left-0 top-0 z-50 h-full w-72 border-r border-border bg-card p-4 transition-transform lg:hidden ${
-          mobileOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className='mb-4 flex items-center justify-between'>
-          <p className='font-display text-lg font-semibold'>WebShark</p>
-          <Button size='sm' variant='ghost' onClick={() => setMobileOpen(false)}>
-            Close
-          </Button>
-        </div>
-        <nav className='space-y-1'>
-          {appNavigation.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className='flex items-center gap-3 rounded-none px-3 py-2 text-sm hover:bg-accent/10 transition-all font-bold uppercase tracking-widest'
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
+              className='fixed inset-0 z-40 bg-background/80 backdrop-blur-sm lg:hidden'
+            />
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className='fixed left-0 top-0 z-50 h-full w-[280px] border-r border-border bg-card/95 backdrop-blur-3xl p-6 lg:hidden shadow-2xl'
             >
-              <item.icon className='h-4 w-4 text-primary-blue' />
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-      </aside>
+              <div className='mb-10 flex items-center justify-between'>
+                <SharkLogo className="h-8 w-36" hideText={false} />
+                <Button 
+                  size='icon' 
+                  variant='ghost' 
+                  className="h-8 w-8 p-0 hover:bg-accent/10" 
+                  onClick={() => setMobileOpen(false)}
+                >
+                   <span className="text-xl">×</span>
+                </Button>
+              </div>
+              <nav className='space-y-1'>
+                {appNavigation.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className={({ isActive }) => cn(
+                      'flex items-center gap-3 rounded-none px-4 py-3 text-sm transition-all font-bold uppercase tracking-widest',
+                      isActive ? 'bg-primary-blue/10 text-primary-blue border-l-4 border-primary-blue' : 'hover:bg-accent/10'
+                    )}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <item.icon className='h-4 w-4' />
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
 
-      <main className='min-w-0 flex-1'>
+      <main className='min-w-0 flex-1 h-screen flex flex-col overflow-hidden'>
         <TopNavbar onMobileMenu={() => setMobileOpen(true)} />
-        <div className='p-4 lg:p-6 relative z-0'>
+        <div className='flex-1 overflow-y-auto p-4 lg:p-8 bg-background/50 scrollbar-cyber'>
           <AnimatePresence mode='wait'>
             <motion.div
               key={location.pathname}
@@ -84,4 +110,5 @@ export function AppLayout() {
     </div>
   )
 }
+
 

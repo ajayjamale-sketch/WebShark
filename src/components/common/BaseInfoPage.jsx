@@ -15,7 +15,7 @@ export default function BaseInfoPage({ title, subtitle, icon: Icon, children }) 
       <motion.div 
         initial="hidden" 
         animate="show" 
-        className="max-w-4xl mx-auto"
+        className="max-w-7xl mx-auto"
       >
         <motion.div variants={fadeUp} className="mb-12">
           <Link to="/" className="inline-flex items-center gap-2 text-[10px] font-bold text-muted-foreground hover:text-primary-blue transition-colors uppercase tracking-[0.3em]">
