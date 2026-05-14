@@ -1,9 +1,32 @@
-import { motion } from 'framer-motion'
-import { Quote, Video, ArrowRight, Globe, Users, Target, BarChart, User } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Quote, Video, ArrowRight, Globe, Users, Target, BarChart, User, X, CheckCircle2 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 import BaseInfoPage from '../../components/common/BaseInfoPage'
 import { testimonialCards } from '../../data/mockData'
 
 export default function TestimonialsPage() {
+  const navigate = useNavigate()
+  const [showForm, setShowForm] = useState(false)
+  const [reportData, setReportData] = useState({ name: '', email: '', company: '', result: '', report: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleReportChange = (e) => {
+    setReportData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleReportSubmit = (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setShowForm(false)
+      toast.success('FIELD_REPORT_SUBMITTED', { description: 'Your tactical report has been received and queued for neural analysis. Thank you, Operative.' })
+      setReportData({ name: '', email: '', company: '', result: '', report: '' })
+    }, 1500)
+  }
+
   return (
     <BaseInfoPage 
       title="User Telemetry" 
@@ -60,20 +83,92 @@ export default function TestimonialsPage() {
         </div>
       </motion.div>
 
+      {/* Section 3: Submit Field Report */}
       <motion.div 
+        id="report-section"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mt-32 text-center border-t border-border pt-32"
+        className="mt-32 border-t border-border pt-32"
       >
-        <h3 className="font-display text-4xl font-bold uppercase tracking-tighter text-foreground mb-8">Contribute to the <span className="text-primary-blue">Intelligence Archive.</span></h3>
-        <p className="text-sm text-muted-foreground font-light max-w-2xl mx-auto mb-12">
-           Have you achieved significant market dominance using WebShark? Submit your tactical report and help us refine the neural engine for future operations.
-        </p>
-        <button className="px-16 py-6 bg-background border border-primary-blue text-primary-blue font-black text-[11px] uppercase tracking-[0.4em] hover:bg-primary-blue hover:text-white transition-all shadow-[0_0_20px_rgba(37,99,235,0.1)]">
-           Submit Field Report
-        </button>
+        <div className="text-center mb-16">
+          <h3 className="font-display text-4xl font-bold uppercase tracking-tighter text-foreground mb-8">Contribute to the <span className="text-primary-blue">Intelligence Archive.</span></h3>
+          <p className="text-sm text-muted-foreground font-light max-w-2xl mx-auto mb-12">
+             Have you achieved significant market dominance using WebShark? Submit your tactical report and help us refine the neural engine for future operations.
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto p-8 lg:p-16 border border-primary-blue/30 bg-primary-blue/5 industrial-corner relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-5">
+             <CheckCircle2 className="h-64 w-64 text-primary-blue" />
+          </div>
+          
+          <div className="relative z-10">
+            <h3 className="font-display text-2xl font-bold uppercase tracking-tighter text-foreground mb-2 text-center">Field Report <span className="text-primary-blue">Submission.</span></h3>
+            <p className="text-[10px] font-bold text-primary-blue uppercase tracking-[0.3em] mb-12 text-center">Encrypted Channel Active</p>
+
+            <form onSubmit={handleReportSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Operative Name</label>
+                  <input 
+                    required name="name" value={reportData.name} onChange={handleReportChange}
+                    className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                    placeholder="Full Name" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Secure Email</label>
+                  <input 
+                    required type="email" name="email" value={reportData.email} onChange={handleReportChange}
+                    className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                    placeholder="agent@company.com" 
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Organization</label>
+                  <input 
+                    name="company" value={reportData.company} onChange={handleReportChange}
+                    className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                    placeholder="Company Name" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Key Result</label>
+                  <input 
+                    required name="result" value={reportData.result} onChange={handleReportChange}
+                    className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                    placeholder="e.g. +240% Visibility" 
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Tactical Report</label>
+                <textarea 
+                  required name="report" value={reportData.report} onChange={handleReportChange}
+                  rows={5} 
+                  className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all resize-none" 
+                  placeholder="Describe how WebShark contributed to your market dominance..." 
+                />
+              </div>
+              <div className="text-center pt-4">
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="px-16 py-6 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Encrypting & Transmitting...' : 'Transmit Field Report'}
+                </button>
+                <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-[0.4em] mt-6">Secure Protocol // End-to-End Encrypted</p>
+              </div>
+            </form>
+          </div>
+        </div>
       </motion.div>
+
+
 
       {/* Section 4: Global Client Logos */}
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-40">
@@ -102,7 +197,10 @@ export default function TestimonialsPage() {
             <p className="text-base text-muted-foreground font-light leading-relaxed mb-8">
                Watch elite marketing directors explain how they utilized WebShark's neural engine to dismantle competitor moats and secure sustainable market dominance.
             </p>
-            <button className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-primary-blue hover:text-foreground transition-colors">
+            <button 
+              onClick={() => navigate('/hq/intel-blog')}
+              className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-primary-blue hover:text-foreground transition-colors"
+            >
                Explore Full Archive <ArrowRight className="h-4 w-4" />
             </button>
          </div>

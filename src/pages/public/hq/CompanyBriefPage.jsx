@@ -1,8 +1,10 @@
 import { Building2, Shield, Globe, Activity, Users, Zap, Target, TrendingUp, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import BaseInfoPage from '../../../components/common/BaseInfoPage'
 
 export default function CompanyBriefPage() {
+  const navigate = useNavigate()
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -107,9 +109,20 @@ export default function CompanyBriefPage() {
                  </div>
                  <div className="text-center lg:text-right">
                     <h2 className="font-display text-4xl font-bold uppercase tracking-tighter text-foreground mb-6">Authorize <span className="text-primary-blue">Deployment.</span></h2>
-                    <button className="inline-flex items-center gap-4 px-10 py-4 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue">
-                       Initialize Operation <ArrowRight className="h-4 w-4" />
-                    </button>
+                    <div className="flex flex-col sm:flex-row lg:justify-end gap-4">
+                       <button 
+                          onClick={() => navigate('/contact')}
+                          className="inline-flex items-center justify-center gap-4 px-10 py-4 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue"
+                        >
+                          Initialize Operation <ArrowRight className="h-4 w-4" />
+                       </button>
+                       <button 
+                          onClick={() => navigate('/pricing')}
+                          className="inline-flex items-center justify-center gap-4 px-10 py-4 bg-background border border-border text-foreground font-black text-[11px] uppercase tracking-[0.3em] hover:bg-accent transition-all"
+                        >
+                          View Pricing <Zap className="h-4 w-4" />
+                       </button>
+                    </div>
                  </div>
               </div>
            </div>

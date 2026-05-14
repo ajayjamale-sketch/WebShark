@@ -1,8 +1,10 @@
 import { Briefcase, Cpu, Users, Zap, Globe, Rocket, Terminal, Activity, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import BaseInfoPage from '../../../components/common/BaseInfoPage'
 
 export default function CareersPage() {
+  const navigate = useNavigate()
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -156,9 +158,20 @@ fn initialize_hire(candidate: &Operative) {
                  </div>
                  <div className="text-center">
                     <h2 className="font-display text-4xl font-bold uppercase tracking-tighter text-foreground mb-8">Initialize <span className="text-primary-blue">Career.</span></h2>
-                    <button className="px-16 py-6 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.4em] hover:bg-primary-blue/90 transition-all shadow-neon-blue">
-                       Authorize Application
-                    </button>
+                    <div className="flex flex-col gap-4">
+                       <button 
+                          onClick={() => navigate('/contact')}
+                          className="w-full px-12 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.4em] hover:bg-primary-blue/90 transition-all shadow-neon-blue flex items-center justify-center gap-3"
+                        >
+                           Authorize Application <ArrowRight className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => navigate('/pricing')}
+                          className="w-full px-12 py-5 bg-background border border-border text-foreground font-black text-[11px] uppercase tracking-[0.4em] hover:bg-accent transition-all flex items-center justify-center gap-3"
+                        >
+                           View Tiers <Zap className="h-4 w-4" />
+                        </button>
+                    </div>
                  </div>
               </div>
            </div>

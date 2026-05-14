@@ -169,10 +169,16 @@ export default function OpportunityPage() {
               <p className="text-base text-muted-foreground font-light max-w-xl mx-auto mb-12">If you possess the technical ingenuity to engineer the future of search, transmit your credentials and technical portfolio today.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                  <button 
-                  onClick={() => toast.success('APPLICATION_AUTHORIZED', { description: 'Encrypted portfolio transmission started.' })}
+                  onClick={() => navigate('/contact')}
                   className="px-16 py-6 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.4em] hover:bg-primary-blue/90 transition-all shadow-neon-blue flex items-center justify-center gap-3"
                  >
                     Authorize Application <ArrowRight className="h-4 w-4" />
+                 </button>
+                 <button 
+                  onClick={() => navigate('/pricing')}
+                  className="px-16 py-6 bg-background border border-border text-foreground font-black text-[11px] uppercase tracking-[0.4em] hover:bg-accent transition-all flex items-center justify-center gap-3"
+                 >
+                    View Tiers <Zap className="h-4 w-4" />
                  </button>
               </div>
               <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-[0.4em] mt-12">Encrypted Submission Channel Active // Response within 24h</p>

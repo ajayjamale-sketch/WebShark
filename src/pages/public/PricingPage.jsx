@@ -1,9 +1,34 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, Zap, Shield, HelpCircle } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 import BaseInfoPage from '../../components/common/BaseInfoPage'
 import { pricingPlans } from '../../data/mockData'
 
 export default function PricingPage() {
+  const navigate = useNavigate()
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', plan: '', message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleFormChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      toast.success('DEPLOYMENT_AUTHORIZED', { description: `Request received for ${formData.plan || 'Custom'} tier. Our command team will reach out within 24h.` })
+      setFormData({ name: '', email: '', company: '', plan: '', message: '' })
+    }, 1500)
+  }
+
+  const scrollToForm = () => {
+    document.getElementById('pricing-form')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <BaseInfoPage 
       title="Pricing Strategy" 
@@ -43,7 +68,10 @@ export default function PricingPage() {
             </div>
 
             <div className="mt-auto">
-               <button className={`w-full py-4 rounded-none font-bold text-[10px] uppercase tracking-[0.2em] transition-all ${plan.popular ? 'bg-primary-blue text-white hover:bg-primary-blue/90' : 'bg-background text-foreground hover:bg-accent border border-border'}`}>
+               <button 
+                 onClick={scrollToForm}
+                 className={`w-full py-4 rounded-none font-bold text-[10px] uppercase tracking-[0.2em] transition-all ${plan.popular ? 'bg-primary-blue text-white hover:bg-primary-blue/90' : 'bg-background text-foreground hover:bg-accent border border-border'}`}
+               >
                  Authorize Deployment
                </button>
             </div>
@@ -66,7 +94,10 @@ export default function PricingPage() {
               </p>
            </div>
            <div className="text-center">
-              <button className="w-full sm:w-auto px-12 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue">
+              <button 
+                onClick={() => navigate('/contact')}
+                className="w-full sm:w-auto px-12 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue"
+              >
                  Contact Command
               </button>
            </div>
@@ -131,7 +162,7 @@ export default function PricingPage() {
       </motion.div>
 
       {/* Section 5: Security & Intelligence (FAQ) */}
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-40 mb-20">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-40">
          <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
                <h2 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground mb-8">Security <span className="text-primary-blue">Protocols.</span></h2>
@@ -154,6 +185,98 @@ export default function PricingPage() {
                     <p className="text-xs text-muted-foreground font-light">{faq.a}</p>
                  </div>
                ))}
+            </div>
+         </div>
+      </motion.div>
+
+      {/* Section 6: Pricing Deployment Form */}
+      <motion.div 
+        id="pricing-form"
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        className="mt-40 mb-20"
+      >
+         <div className="p-8 lg:p-16 border border-primary-blue/30 bg-primary-blue/5 industrial-corner relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-5">
+               <Zap className="h-64 w-64 text-primary-blue" />
+            </div>
+            <div className="relative z-10">
+               <h2 className="font-display text-3xl lg:text-4xl font-bold uppercase tracking-tighter text-foreground mb-4 text-center">Deployment <span className="text-primary-blue">Authorization.</span></h2>
+               <p className="text-sm text-muted-foreground font-light text-center max-w-2xl mx-auto mb-12">
+                  Submit your deployment request below. Our tactical operations team will review your requirements and establish a secure communication channel within 24 hours.
+               </p>
+               
+               <form onSubmit={handleFormSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Operative Name</label>
+                     <input 
+                       required 
+                       name="name"
+                       value={formData.name}
+                       onChange={handleFormChange}
+                       className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                       placeholder="Full Name" 
+                     />
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Secure Email</label>
+                     <input 
+                       required 
+                       type="email"
+                       name="email"
+                       value={formData.email}
+                       onChange={handleFormChange}
+                       className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                       placeholder="operative@company.com" 
+                     />
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Organization</label>
+                     <input 
+                       name="company"
+                       value={formData.company}
+                       onChange={handleFormChange}
+                       className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all" 
+                       placeholder="Company Name" 
+                     />
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Target Tier</label>
+                     <select 
+                       name="plan"
+                       value={formData.plan}
+                       onChange={handleFormChange}
+                       className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all appearance-none cursor-pointer"
+                     >
+                       <option value="">Select Operational Tier</option>
+                       <option value="Recon">Recon — Base</option>
+                       <option value="Tactical">Tactical — Professional</option>
+                       <option value="Command">Command — Enterprise</option>
+                     </select>
+                  </div>
+                  <div className="space-y-2 md:col-span-2">
+                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Mission Briefing</label>
+                     <textarea 
+                       name="message"
+                       value={formData.message}
+                       onChange={handleFormChange}
+                       rows={4} 
+                       className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none transition-all resize-none" 
+                       placeholder="Describe your operational requirements..." 
+                     />
+                  </div>
+                  <div className="md:col-span-2 text-center">
+                     <button 
+                       type="submit" 
+                       disabled={isSubmitting}
+                       className="px-16 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue disabled:opacity-50 disabled:cursor-not-allowed"
+                     >
+                       {isSubmitting ? 'Processing Authorization...' : 'Submit Deployment Request'}
+                     </button>
+                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-[0.4em] mt-6">Encrypted Submission // Response Within 24h</p>
+                  </div>
+               </form>
             </div>
          </div>
       </motion.div>
