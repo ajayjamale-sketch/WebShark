@@ -12,24 +12,31 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState(adminUsers)
 
   const toggleStatus = (id) => {
+    const user = users.find(u => u.id === id);
+    if (!user) return;
+    
     setUsers((prev) =>
       prev.map((u) => {
         if (u.id !== id) return u
-        const next = { ...u, status: u.status === 'active' ? 'inactive' : 'active' }
-        toast.success(`${next.name} ${next.status === 'active' ? 'activated' : 'deactivated'}`)
-        return next
+        return { ...u, status: u.status === 'active' ? 'inactive' : 'active' }
       })
     )
+    
+    toast.success(`${user.name} ${user.status === 'active' ? 'deactivated' : 'activated'}`)
   }
 
   const changeRole = (id, role) => {
+    const user = users.find(u => u.id === id);
+    if (!user) return;
+
     setUsers((prev) =>
       prev.map((u) => {
         if (u.id !== id) return u
-        toast.success(`${u.name}'s role changed to ${role}`)
         return { ...u, role }
       })
     )
+    
+    toast.success(`${user.name}'s role changed to ${role}`)
   }
 
   const columns = useMemo(() => [

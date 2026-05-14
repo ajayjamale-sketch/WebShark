@@ -5,8 +5,11 @@ import { Card } from '../../components/ui/card'
 import { Badge } from '../../components/ui/badge'
 import { adminWorkspaces, revenueData } from '../../data/mockData'
 import { motion } from 'framer-motion'
+import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
 
 export default function AdminDashboardPage() {
+  const navigate = useNavigate()
   const stats = [
     { label: 'Active Users', value: '2,418', change: '+73', trend: 'up', icon: Users, color: 'primary-blue' },
     { label: 'System Health', value: '100%', change: 'Stable', trend: 'up', icon: ShieldCheck, color: 'emerald-500' },
@@ -22,10 +25,21 @@ export default function AdminDashboardPage() {
           subtitle='Platform-wide monitoring, subscriptions, and active nodes.'
         />
         <div className="flex items-center gap-3">
-           <button className="px-4 py-2 rounded-none bg-accent/5 border border-border hover:bg-accent/10 text-[10px] font-bold uppercase tracking-widest transition-all">
+           <button 
+            onClick={() => toast.success('INTEL_EXPORT_INITIATED', { description: 'Compiling platform-wide telemetry brief...' })}
+            className="px-4 py-2 rounded-none bg-accent/5 border border-border hover:bg-accent/10 text-[10px] font-bold uppercase tracking-widest transition-all"
+           >
               Export Intel
            </button>
-           <button className="px-4 py-2 rounded-none bg-primary-blue text-white text-[10px] font-bold uppercase tracking-widest shadow-neon-blue transition-all hover:translate-y-[-2px]">
+           <button 
+            onClick={() => {
+              const toastId = toast.loading('FORCE_UPDATE_ACTIVE', { description: 'Syncing tactical nodes... Please hold.' });
+              setTimeout(() => {
+                toast.success('SYNC_COMPLETE', { id: toastId, description: 'All nodes updated to latest tactical version.' });
+              }, 2000);
+            }}
+            className="px-4 py-2 rounded-none bg-primary-blue text-white text-[10px] font-bold uppercase tracking-widest shadow-neon-blue transition-all hover:translate-y-[-2px]"
+           >
               Force Update
            </button>
         </div>
@@ -74,7 +88,12 @@ export default function AdminDashboardPage() {
               </div>
               <h3 className='font-display text-lg font-bold text-foreground uppercase tracking-tight'>Active Nodes</h3>
             </div>
-            <button className="text-[10px] font-bold text-accent-cyan uppercase tracking-widest hover:underline">View All</button>
+            <button 
+              onClick={() => navigate('/admin/monitoring')}
+              className="text-[10px] font-bold text-accent-cyan uppercase tracking-widest hover:underline"
+            >
+              View All
+            </button>
           </div>
           
           <div className='space-y-4 flex-1 overflow-y-auto scrollbar-none'>

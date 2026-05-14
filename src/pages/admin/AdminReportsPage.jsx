@@ -2,8 +2,22 @@ import { motion } from 'framer-motion'
 import { Download, FileText, Search } from 'lucide-react'
 import { reports } from '../../data/mockData'
 import { Badge } from '../../components/ui/badge'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 export default function AdminReportsPage() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [typeFilter, setTypeFilter] = useState('All Data Types')
+
+  const filteredReports = reports.filter(report => {
+    const matchesSearch = report.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesType = typeFilter === 'All Data Types' || report.type.toLowerCase().includes(typeFilter.toLowerCase().split(' ')[0])
+    return matchesSearch && matchesType
+  })
+
+  const handleDownload = (title) => {
+    toast.success('DECRYPTION_COMPLETE', { description: `Downloading: ${title}.intel` })
+  }
   return (
     <div className='p-8 max-w-7xl mx-auto'>
       <div className='mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
@@ -20,11 +34,17 @@ export default function AdminReportsPage() {
             <input
               type='text'
               placeholder='Search intelligence protocols...'
-              className='w-full pl-10 pr-4 py-2.5 bg-accent/5 border border-border rounded-none text-xs font-bold uppercase tracking-widest focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className='w-full pl-10 pr-4 py-2.5 bg-accent/5 border border-border rounded-none text-xs font-bold uppercase tracking-widest focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all text-foreground'
             />
           </div>
           <div className='flex gap-2'>
-             <select className='bg-accent/5 border border-border rounded-none px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground focus:outline-none'>
+             <select 
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
+              className='bg-accent/5 border border-border rounded-none px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground focus:outline-none'
+             >
                 <option>All Data Types</option>
                 <option>SEO Audit</option>
                 <option>Competitor Intel</option>
@@ -44,7 +64,7 @@ export default function AdminReportsPage() {
               </tr>
             </thead>
             <tbody className='text-sm'>
-              {reports.map((report, i) => (
+              {filteredReports.map((report, i) => (
                 <motion.tr 
                   key={report.id} 
                   initial={{ opacity: 0, y: 10 }}
@@ -70,6 +90,7 @@ export default function AdminReportsPage() {
                   <td className='py-4 px-4 text-right'>
                     <button 
                       disabled={report.status !== 'ready'}
+                      onClick={() => handleDownload(report.title)}
                       className='p-2 rounded-none border border-border text-muted-foreground hover:text-foreground hover:bg-accent/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all'
                     >
                       <Download className='h-4 w-4' />

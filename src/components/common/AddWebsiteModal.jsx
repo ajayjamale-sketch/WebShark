@@ -43,7 +43,7 @@ export function AddWebsiteModal({ open, onClose, onAdded }) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className='sm:max-w-md bg-slate-900/90 backdrop-blur-3xl border border-white/10 rounded-3xl p-0 overflow-hidden shadow-2xl'>
+      <DialogContent className='sm:max-w-md bg-white dark:bg-slate-900/90 backdrop-blur-3xl border border-slate-200 dark:border-white/10 rounded-3xl p-0 overflow-hidden shadow-2xl'>
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-blue/50 to-transparent"></div>
         
         <DialogHeader className="p-8 pb-4">
@@ -52,16 +52,10 @@ export function AddWebsiteModal({ open, onClose, onAdded }) {
                <Globe className='h-5 w-5 text-accent-cyan' />
             </div>
             <div>
-               <span className="block text-xl font-black text-white uppercase tracking-tight">Deploy New Node</span>
+               <span className="block text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Deploy New Node</span>
                <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Initialize grid expansion protocol</span>
             </div>
           </DialogTitle>
-          <button 
-            onClick={onClose}
-            className="absolute right-6 top-6 p-2 rounded-xl bg-white/5 border border-white/5 text-slate-500 hover:text-white hover:bg-white/10 transition-all"
-          >
-             <X className="h-4 w-4" />
-          </button>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className='p-8 pt-4 space-y-6'>
@@ -75,7 +69,7 @@ export function AddWebsiteModal({ open, onClose, onAdded }) {
                      placeholder='https://target-node.com'
                      value={url}
                      onChange={(e) => setUrl(e.target.value)}
-                     className="pl-12 py-6 bg-white/5 border-white/10 rounded-2xl focus:bg-white/10 transition-all placeholder:text-slate-700 font-mono text-sm"
+                     className="pl-12 py-6 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-2xl focus:bg-slate-100 dark:focus:bg-white/10 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-700 font-mono text-sm dark:text-white"
                      required
                    />
                 </div>
@@ -88,13 +82,13 @@ export function AddWebsiteModal({ open, onClose, onAdded }) {
                   placeholder='Primary Alpha'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="py-6 bg-white/5 border-white/10 rounded-2xl focus:bg-white/10 transition-all placeholder:text-slate-700"
+                  className="py-6 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-2xl focus:bg-slate-100 dark:focus:bg-white/10 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-700 dark:text-white"
                 />
              </div>
           </div>
 
           <div className='flex gap-3 pt-2'>
-            <Button type='button' variant='ghost' className="flex-1 py-6 rounded-2xl text-slate-400 hover:text-white hover:bg-white/5 font-bold uppercase tracking-widest text-xs" onClick={onClose}>
+            <Button type='button' variant='ghost' className="flex-1 py-6 rounded-2xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 font-bold uppercase tracking-widest text-xs" onClick={onClose}>
               Abort
             </Button>
             <Button type='submit' className="flex-[2] py-6 rounded-2xl bg-gradient-to-r from-primary-blue to-accent-cyan text-white font-bold shadow-neon-blue hover:scale-[1.02] transition-all group" disabled={loading}>

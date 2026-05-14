@@ -1,10 +1,31 @@
-import { motion } from 'framer-motion'
 import { User, Mail, Shield, Key, Bell, CreditCard, Save } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { toast } from 'sonner'
+import { cn } from '../../utils/cn'
 
 export default function ProfilePage() {
+  const navigate = useNavigate()
   const [isSaving, setIsSaving] = useState(false)
+  const [isTwoFactor, setIsTwoFactor] = useState(true)
+  const [isAlerts, setIsAlerts] = useState(true)
+
+  const handleToggle2FA = () => {
+    const newState = !isTwoFactor
+    setIsTwoFactor(newState)
+    toast.info(newState ? '2FA_ACTIVATED' : '2FA_DEACTIVATED', { 
+      description: newState ? 'Secondary security layer is now online.' : 'Security protocol downgraded. Exercise caution.' 
+    })
+  }
+
+  const handleToggleAlerts = () => {
+    const newState = !isAlerts
+    setIsAlerts(newState)
+    toast.info(newState ? 'COMMS_ONLINE' : 'COMMS_OFFLINE', { 
+      description: newState ? 'Real-time intelligence feed active.' : 'Intelligence alerts suppressed.' 
+    })
+  }
 
   const handleSave = () => {
     setIsSaving(true)
@@ -68,7 +89,10 @@ export default function ProfilePage() {
                    <p className="text-xs font-black text-foreground uppercase mb-1">Enterprise Tier</p>
                    <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Renews in 12 Days</p>
                 </div>
-                <button className="w-full py-3 bg-transparent border border-primary-blue/30 text-primary-blue text-[10px] font-black uppercase tracking-widest hover:bg-primary-blue/10 transition-colors">
+                <button 
+                  onClick={() => navigate('/app/billing')}
+                  className="w-full py-3 bg-transparent border border-primary-blue/30 text-primary-blue text-[10px] font-black uppercase tracking-widest hover:bg-primary-blue/10 transition-colors"
+                >
                    Manage Billing
                 </button>
              </div>
@@ -111,35 +135,41 @@ export default function ProfilePage() {
              </div>
 
              <div className="space-y-6">
-                <div className="flex items-center justify-between p-4 bg-accent/5 border border-border group cursor-pointer hover:border-primary-blue/50 transition-colors">
-                   <div className="flex items-center gap-4">
-                      <div className="h-8 w-8 bg-primary-blue/10 flex items-center justify-center text-primary-blue">
-                         <Key className="h-4 w-4" />
-                      </div>
-                      <div>
-                         <p className="text-[11px] font-black text-foreground uppercase tracking-tight">Two-Factor Authentication</p>
-                         <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Additional security layer active</p>
-                      </div>
-                   </div>
-                   <div className="h-4 w-8 bg-primary-blue rounded-full relative">
-                      <div className="absolute right-1 top-1 h-2 w-2 bg-white rounded-full" />
-                   </div>
-                </div>
+                 <div 
+                  onClick={handleToggle2FA}
+                  className="flex items-center justify-between p-4 bg-accent/5 border border-border group cursor-pointer hover:border-primary-blue/50 transition-colors"
+                 >
+                    <div className="flex items-center gap-4">
+                       <div className="h-8 w-8 bg-primary-blue/10 flex items-center justify-center text-primary-blue">
+                          <Key className="h-4 w-4" />
+                       </div>
+                       <div>
+                          <p className="text-[11px] font-black text-foreground uppercase tracking-tight">Two-Factor Authentication</p>
+                          <p className="text-[9px] text-muted-foreground uppercase tracking-widest">{isTwoFactor ? 'Additional security layer active' : 'Standard security mode'}</p>
+                       </div>
+                    </div>
+                    <div className={cn("h-4 w-8 rounded-full relative transition-colors", isTwoFactor ? "bg-primary-blue" : "bg-muted/30")}>
+                       <div className={cn("absolute top-1 h-2 w-2 bg-white rounded-full transition-all", isTwoFactor ? "right-1" : "left-1")} />
+                    </div>
+                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-accent/5 border border-border group cursor-pointer hover:border-primary-blue/50 transition-colors">
-                   <div className="flex items-center gap-4">
-                      <div className="h-8 w-8 bg-primary-blue/10 flex items-center justify-center text-primary-blue">
-                         <Bell className="h-4 w-4" />
-                      </div>
-                      <div>
-                         <p className="text-[11px] font-black text-foreground uppercase tracking-tight">Intelligence Alerts</p>
-                         <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Real-time ranking shift notifications</p>
-                      </div>
-                   </div>
-                   <div className="h-4 w-8 bg-primary-blue rounded-full relative">
-                      <div className="absolute right-1 top-1 h-2 w-2 bg-white rounded-full" />
-                   </div>
-                </div>
+                 <div 
+                  onClick={handleToggleAlerts}
+                  className="flex items-center justify-between p-4 bg-accent/5 border border-border group cursor-pointer hover:border-primary-blue/50 transition-colors"
+                 >
+                    <div className="flex items-center gap-4">
+                       <div className="h-8 w-8 bg-primary-blue/10 flex items-center justify-center text-primary-blue">
+                          <Bell className="h-4 w-4" />
+                       </div>
+                       <div>
+                          <p className="text-[11px] font-black text-foreground uppercase tracking-tight">Intelligence Alerts</p>
+                          <p className="text-[9px] text-muted-foreground uppercase tracking-widest">{isAlerts ? 'Real-time ranking shift notifications' : 'Notifications disabled'}</p>
+                       </div>
+                    </div>
+                    <div className={cn("h-4 w-8 rounded-full relative transition-colors", isAlerts ? "bg-primary-blue" : "bg-muted/30")}>
+                       <div className={cn("absolute top-1 h-2 w-2 bg-white rounded-full transition-all", isAlerts ? "right-1" : "left-1")} />
+                    </div>
+                 </div>
              </div>
 
              <div className="mt-12 flex justify-end">

@@ -1,8 +1,14 @@
 import { Mail, Shield, Globe, Activity, Zap, Lock, Terminal, Phone, MapPin, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { toast } from 'sonner'
 import BaseInfoPage from '../../../components/common/BaseInfoPage'
 
 export default function SecureContactPage() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.success('TRANSMISSION_SECURED', { description: 'Payload successfully uploaded to high command.' });
+  }
+
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -23,20 +29,20 @@ export default function SecureContactPage() {
               <div className="absolute top-0 right-0 p-4 opacity-5">
                  <Lock className="h-24 w-24 text-primary-blue" />
               </div>
-              <form className="space-y-6 relative z-10">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                  <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Subject Identifier</label>
-                    <input className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none" placeholder="Operation Query" />
+                    <input required className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none" placeholder="Operation Query" />
                  </div>
                  <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Secure Email</label>
-                    <input className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none" placeholder="agent@client.com" />
+                    <input required type="email" className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none" placeholder="agent@client.com" />
                  </div>
                  <div className="space-y-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Encrypted Payload</label>
-                    <textarea rows={5} className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none" placeholder="State your mission..." />
+                    <textarea required rows={5} className="w-full bg-background border border-border p-4 text-sm focus:border-primary-blue outline-none rounded-none" placeholder="State your mission..." />
                  </div>
-                 <button className="w-full py-5 bg-primary-blue text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-none hover:bg-primary-blue/90 transition-all shadow-neon-blue">
+                 <button type="submit" className="w-full py-5 bg-primary-blue text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-none hover:bg-primary-blue/90 transition-all shadow-neon-blue">
                     Transmit Payload
                  </button>
               </form>
@@ -62,7 +68,12 @@ export default function SecureContactPage() {
                             <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{hq.type}</p>
                             <p className="text-xs font-mono text-foreground">{hq.contact}</p>
                          </div>
-                         <button className="text-[9px] font-black text-primary-blue uppercase tracking-widest hover:underline">Get Directions</button>
+                         <button 
+                            onClick={() => toast.info('LINK_RESTRICTED', { description: 'Direct geolocation protocols are available to verified operatives only.' })}
+                            className="text-[9px] font-black text-primary-blue uppercase tracking-widest hover:underline"
+                          >
+                            Get Directions
+                          </button>
                       </div>
                    </div>
                  ))}
@@ -83,7 +94,11 @@ export default function SecureContactPage() {
                       { icon: Shield, label: 'Secure Mail', desc: 'PGP-encrypted submission.' },
                       { icon: Globe, label: 'Global Portal', desc: 'Support ticket system.' }
                     ].map((p, i) => (
-                      <div key={i} className="flex gap-4">
+                       <div 
+                        key={i} 
+                        onClick={() => toast.success(`PROTOCOL_ACTIVE: ${p.label}`, { description: 'Establishing secure uplink...' })}
+                        className="flex gap-4 cursor-pointer group"
+                      >
                          <div className="mt-1 h-8 w-8 bg-background border border-border flex items-center justify-center text-primary-blue">
                             <p.icon className="h-4 w-4" />
                          </div>
@@ -146,18 +161,6 @@ export default function SecureContactPage() {
            </div>
         </motion.div>
 
-        {/* Section 6: Secure Data Ingestion (Upload) */}
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-32 mb-20">
-           <div className="p-16 border-2 border-dashed border-border bg-accent/5 text-center group hover:border-primary-blue transition-all cursor-pointer">
-              <Zap className="h-12 w-12 text-primary-blue opacity-20 mx-auto mb-8 group-hover:opacity-100 transition-opacity" />
-              <h3 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground mb-4">Secure Data <span className="text-primary-blue">Ingestion.</span></h3>
-              <p className="text-sm text-muted-foreground font-light max-w-xl mx-auto mb-8">Have a technical report or market data you need us to analyze? Upload your encrypted payload here for neural synthesis.</p>
-              <div className="inline-flex items-center gap-4 px-10 py-5 bg-background border border-border text-[10px] font-black uppercase tracking-[0.3em] text-foreground hover:bg-accent transition-all">
-                 Authorize Upload <ArrowRight className="h-4 w-4" />
-              </div>
-              <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-[0.4em] mt-8">Max Payload: 500MB // Supported: JSON, CSV, PDF, XML</p>
-           </div>
-        </motion.div>
       </div>
     </BaseInfoPage>
   )

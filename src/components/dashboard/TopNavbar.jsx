@@ -1,5 +1,6 @@
 import { CalendarRange, Command, Menu, Search, FileDown } from 'lucide-react'
 import { useAppContext } from '../../context/AppContext'
+import { toast } from 'sonner'
 import { Input } from '../ui/input'
 import { ThemeToggle } from '../common/ThemeToggle'
 import { WorkspaceSwitcher } from '../common/WorkspaceSwitcher'
@@ -42,12 +43,18 @@ export function TopNavbar({ onMobileMenu }) {
             <span className="text-[10px] bg-background px-1.5 py-0.5 rounded-none border border-border">⌘K</span>
           </button>
 
-          <button className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-none bg-accent/20 border border-border text-muted-foreground hover:text-foreground hover:bg-accent/40 transition-all">
+          <button 
+            onClick={() => toast.info('WINDOW_SYNCED', { description: 'Syncing tactical timeline with global HQ...' })}
+            className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-none bg-accent/20 border border-border text-muted-foreground hover:text-foreground hover:bg-accent/40 transition-all"
+          >
             <CalendarRange className='h-4 w-4' />
             <span className='text-xs font-bold uppercase tracking-widest'>Operational Window</span>
           </button>
 
-          <button className="flex items-center gap-2 px-4 py-2.5 rounded-none bg-primary-blue text-white text-xs font-bold uppercase tracking-widest hover:bg-primary-blue/90 transition-all shadow-sm">
+          <button 
+            onClick={() => toast.success('INTEL_GENERATED', { description: 'Operational brief compiled and ready for deployment.' })}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-none bg-primary-blue text-white text-xs font-bold uppercase tracking-widest hover:bg-primary-blue/90 transition-all shadow-sm"
+          >
             <FileDown className='h-4 w-4' />
             <span className="hidden md:inline">Generate Intel</span>
           </button>

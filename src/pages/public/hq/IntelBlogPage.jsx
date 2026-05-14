@@ -1,8 +1,28 @@
 import { BookOpen, Search, Activity, Zap, TrendingUp, Mail, ArrowRight, Clock, User } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import { useState } from 'react'
 import BaseInfoPage from '../../../components/common/BaseInfoPage'
 
 export default function IntelBlogPage() {
+  const navigate = useNavigate()
+  const [searchTerm, setSearchTerm] = useState('')
+  
+  const briefings = [
+    { title: 'The Rise of Zero-Click SERPs', category: 'Market Trend', date: '2d ago' },
+    { title: 'Internal Linking Protocols', category: 'Technical', date: '4d ago' },
+    { title: 'Crawl Budget Optimization', category: 'Infrastructure', date: '1w ago' },
+    { title: 'AI Content Infiltration', category: 'Neural', date: '10d ago' },
+    { title: 'Local Search Geostationary Nodes', category: 'Growth', date: '2w ago' },
+    { title: 'Encrypted Meta-Data Signals', category: 'Security', date: '3w ago' }
+  ]
+
+  const filteredBriefings = briefings.filter(post => 
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.category.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -22,19 +42,22 @@ export default function IntelBlogPage() {
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-12">
            <div className="group relative border border-border bg-accent/5 overflow-hidden industrial-corner p-1">
               <div className="aspect-[21/9] bg-background border border-border relative overflow-hidden">
-                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070')] bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-1000" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-                 <div className="absolute bottom-8 left-8 right-8">
-                    <div className="flex items-center gap-4 mb-4">
-                       <span className="px-3 py-1 bg-primary-blue text-white text-[8px] font-black uppercase tracking-widest">CRITICAL_INTEL</span>
-                       <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">March 24, 2024</span>
-                    </div>
-                    <h2 className="text-2xl lg:text-4xl font-bold text-white uppercase tracking-tighter mb-4">Reverse-Engineering the V4 Semantic Core Update</h2>
-                    <p className="text-sm text-white/70 max-w-2xl mb-6">A deep dive into how recent neural weight adjustments have impacted e-commerce topical authority scores.</p>
-                    <button className="flex items-center gap-3 text-[10px] font-black text-primary-blue uppercase tracking-[0.3em] hover:text-white transition-colors">
-                       Access Full Report <ArrowRight className="h-4 w-4" />
-                    </button>
-                 </div>
+                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                  <div className="absolute bottom-8 left-8 right-8 z-10">
+                     <div className="flex items-center gap-4 mb-4">
+                        <span className="px-3 py-1 bg-primary-blue text-white text-[8px] font-black uppercase tracking-widest">CRITICAL_INTEL</span>
+                        <span className="text-[10px] text-slate-300 font-bold uppercase tracking-widest">March 24, 2024</span>
+                     </div>
+                     <h2 className="text-2xl lg:text-4xl font-bold text-white uppercase tracking-tighter mb-4">Reverse-Engineering the V4 Semantic Core Update</h2>
+                     <p className="text-sm text-slate-300 max-w-2xl mb-6">A deep dive into how recent neural weight adjustments have impacted e-commerce topical authority scores.</p>
+                     <button 
+                        onClick={() => navigate('/pricing')}
+                        className="flex items-center gap-3 text-[10px] font-black text-primary-blue uppercase tracking-[0.3em] hover:text-white transition-colors"
+                     >
+                        Access Full Report <ArrowRight className="h-4 w-4" />
+                     </button>
+                  </div>
               </div>
            </div>
         </motion.div>
@@ -43,21 +66,24 @@ export default function IntelBlogPage() {
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-32">
            <div className="flex items-center justify-between mb-12">
               <h3 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground">Recent <span className="text-primary-blue">Briefings.</span></h3>
-              <div className="flex items-center gap-4 px-4 py-2 bg-background border border-border">
-                 <Search className="h-4 w-4 text-muted-foreground" />
-                 <input type="text" placeholder="Filter Intel..." className="bg-transparent border-none outline-none text-[10px] font-bold uppercase tracking-widest w-32 focus:w-48 transition-all" />
-              </div>
+               <div className="flex items-center gap-4 px-4 py-2 bg-background border border-border group focus-within:border-primary-blue transition-all">
+                  <Search className="h-4 w-4 text-muted-foreground group-focus-within:text-primary-blue transition-colors" />
+                  <input 
+                    type="text" 
+                    placeholder="Filter Intel..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="bg-transparent border-none outline-none text-[10px] font-bold uppercase tracking-widest w-32 focus:w-48 transition-all text-foreground" 
+                  />
+               </div>
            </div>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { title: 'The Rise of Zero-Click SERPs', category: 'Market Trend', date: '2d ago' },
-                { title: 'Internal Linking Protocols', category: 'Technical', date: '4d ago' },
-                { title: 'Crawl Budget Optimization', category: 'Infrastructure', date: '1w ago' },
-                { title: 'AI Content Infiltration', category: 'Neural', date: '10d ago' },
-                { title: 'Local Search Geostationary Nodes', category: 'Growth', date: '2w ago' },
-                { title: 'Encrypted Meta-Data Signals', category: 'Security', date: '3w ago' }
-              ].map((post, i) => (
-                <div key={i} className="p-8 border border-border bg-background hover:border-primary-blue/30 transition-all group cursor-pointer">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               {filteredBriefings.map((post, i) => (
+                <div 
+                  key={i} 
+                  onClick={() => toast.error('CLEARANCE_LEVEL_INSUFFICIENT', { description: 'L7 technical clearance required to access classified intel.' })}
+                  className="p-8 border border-border bg-background hover:border-primary-blue/30 transition-all group cursor-pointer"
+                >
                    <div className="flex items-center justify-between mb-6">
                       <span className="text-[8px] font-black text-primary-blue uppercase tracking-widest">{post.category}</span>
                       <div className="flex items-center gap-2 text-muted-foreground">
@@ -84,7 +110,11 @@ export default function IntelBlogPage() {
                 { icon: Zap, label: 'Neural AI', count: 15 },
                 { icon: User, label: 'Case Reports', count: 31 }
               ].map((cat, i) => (
-                <div key={i} className="p-8 border border-border bg-accent/5 industrial-corner text-center hover:bg-primary-blue/5 transition-all cursor-pointer group">
+                <div 
+                  key={i} 
+                  onClick={() => toast.success(`SECTOR_SCAN: ${cat.label}`, { description: 'Syncing tactical telemetry nodes...' })}
+                  className="p-8 border border-border bg-accent/5 industrial-corner text-center hover:bg-primary-blue/5 transition-all cursor-pointer group"
+                >
                    <cat.icon className="h-8 w-8 text-primary-blue/50 mx-auto mb-4 group-hover:text-primary-blue transition-colors" />
                    <p className="text-[10px] font-black text-foreground uppercase tracking-widest mb-1">{cat.label}</p>
                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{cat.count} Briefings</p>
@@ -128,12 +158,21 @@ export default function IntelBlogPage() {
               <Mail className="h-12 w-12 text-primary-blue opacity-20 mx-auto mb-8" />
               <h2 className="font-display text-4xl font-bold uppercase tracking-tighter text-foreground mb-8">Initialize Intel <span className="text-primary-blue">Subscription.</span></h2>
               <p className="text-sm text-muted-foreground font-light mb-12">Get detailed mission reports and strategic directives delivered directly to your secure inbox. No vanity metrics, just actionable intelligence.</p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                 <input type="email" placeholder="Enter Secure Email Address" className="flex-1 bg-background border border-border px-8 py-5 text-xs font-bold uppercase tracking-widest outline-none focus:border-primary-blue transition-all" />
-                 <button className="px-12 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue">
-                    Authorize Feed
-                 </button>
-              </div>
+               <div className="flex flex-col sm:flex-row gap-4">
+                  <input 
+                    type="email" 
+                    placeholder="Enter Secure Email Address" 
+                    className="flex-1 bg-background border border-border px-8 py-5 text-xs font-bold uppercase tracking-widest outline-none focus:border-primary-blue transition-all" 
+                  />
+                  <button 
+                    onClick={() => {
+                      toast.success('SUBSCRIPTION_AUTHORIZED', { description: 'Encrypted intelligence feed enabled.' });
+                    }}
+                    className="px-12 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue flex items-center justify-center gap-2"
+                  >
+                    Authorize Feed <ArrowRight className="h-4 w-4" />
+                  </button>
+               </div>
               <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-[0.4em] mt-8">Secure Protocol Encrypted // Zero Spam Commitment</p>
            </div>
         </motion.div>

@@ -15,6 +15,7 @@ export default function CompanyBriefPage() {
       icon={Building2}
     >
       <div className="space-y-8 text-muted-foreground font-light leading-relaxed">
+        {/* Section 1: Strategic Introduction */}
         <p className="text-xl text-foreground font-medium">WebShark is a mission-driven intelligence firm dedicated to digital dominance.</p>
         <p>Founded in 2024, our objective has always been to level the playing field for growth teams by providing enterprise-grade armaments. We operate at the intersection of data science and architectural SEO, processing billions of signals to deliver absolute market clarity.</p>
         
@@ -62,7 +63,7 @@ export default function CompanyBriefPage() {
            </div>
         </motion.div>
 
-        {/* Section 4: Strategic Timeline */}
+        {/* Section 4: Operational Evolution */}
         <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-32">
            <h3 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground mb-12 text-center">Operational <span className="text-primary-blue">Evolution.</span></h3>
            <div className="space-y-12 max-w-3xl mx-auto">
@@ -84,58 +85,32 @@ export default function CompanyBriefPage() {
            </div>
         </motion.div>
 
-        {/* Section 5: Leadership Matrix */}
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-32">
-           <h3 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground mb-12">Command <span className="text-primary-blue">Leadership.</span></h3>
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { name: 'Dr. Elias Vance', role: 'Chief Architect' },
-                { name: 'Sarah Chen', role: 'Head of Intel' },
-                { name: 'Marcus Thorne', role: 'Ops Director' },
-                { name: 'Elena Rossi', role: 'Chief Scientist' }
-              ].map((leader, i) => (
-                <div key={i} className="p-6 border border-border bg-background hover:border-primary-blue transition-all cursor-default">
-                   <h4 className="text-xs font-black text-foreground uppercase tracking-widest mb-1">{leader.name}</h4>
-                   <p className="text-[10px] font-bold text-primary-blue uppercase tracking-widest">{leader.role}</p>
-                </div>
-              ))}
-           </div>
-        </motion.div>
-
-        {/* Section 6: Values & Commitment */}
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-32 p-12 border border-border bg-accent/5 industrial-corner">
-           <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                 <h3 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground mb-8">Core <span className="text-primary-blue">Protocols.</span></h3>
-                 <p className="text-sm leading-relaxed mb-8">Our operations are governed by three non-negotiable protocols that ensure the integrity of the WebShark network and the success of our operatives.</p>
-                 <div className="space-y-4">
-                    {['Radical Data Transparency', 'Zero-Latency Response', 'Ethical Neural Engineering'].map(v => (
-                      <div key={v} className="flex items-center gap-4 p-4 bg-background border border-border">
-                         <Activity className="h-4 w-4 text-primary-blue/50" />
-                         <span className="text-[10px] font-black uppercase tracking-widest text-foreground">{v}</span>
-                      </div>
-                    ))}
+        {/* Section 5: Command Leadership & CTA */}
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-40 mb-20">
+           <div className="p-16 border border-primary-blue/30 bg-primary-blue/5 industrial-corner relative overflow-hidden">
+              <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                 <div>
+                    <h3 className="font-display text-3xl font-bold uppercase tracking-tighter text-foreground mb-8">Command <span className="text-primary-blue">Leadership.</span></h3>
+                    <div className="grid grid-cols-2 gap-4">
+                       {[
+                         { name: 'Dr. Elias Vance', role: 'Chief Architect' },
+                         { name: 'Sarah Chen', role: 'Head of Intel' },
+                         { name: 'Marcus Thorne', role: 'Ops Director' },
+                         { name: 'Elena Rossi', role: 'Chief Scientist' }
+                       ].map((leader, i) => (
+                         <div key={i} className="p-4 border border-border bg-background">
+                            <h4 className="text-[10px] font-black text-foreground uppercase tracking-widest mb-1">{leader.name}</h4>
+                            <p className="text-[8px] font-bold text-primary-blue uppercase tracking-widest">{leader.role}</p>
+                         </div>
+                       ))}
+                    </div>
                  </div>
-              </div>
-              <div className="aspect-square border border-border bg-background flex items-center justify-center relative overflow-hidden group">
-                 <div className="absolute inset-0 grid-pattern opacity-10" />
-                 <Shield className="h-32 w-32 text-primary-blue opacity-10 group-hover:scale-110 transition-transform duration-1000" />
-                 <div className="absolute bottom-4 text-center">
-                    <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground">Certified_Operational_Integrity</p>
+                 <div className="text-center lg:text-right">
+                    <h2 className="font-display text-4xl font-bold uppercase tracking-tighter text-foreground mb-6">Authorize <span className="text-primary-blue">Deployment.</span></h2>
+                    <button className="inline-flex items-center gap-4 px-10 py-4 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue">
+                       Initialize Operation <ArrowRight className="h-4 w-4" />
+                    </button>
                  </div>
-              </div>
-           </div>
-        </motion.div>
-
-        {/* Section 7: Final CTA */}
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} className="mt-40 mb-20 text-center">
-           <div className="p-16 border border-primary-blue/30 bg-primary-blue/5 industrial-corner relative overflow-hidden group">
-              <div className="relative z-10">
-                 <h2 className="font-display text-4xl lg:text-5xl font-bold uppercase tracking-tighter text-foreground mb-8">Authorize Your <span className="text-primary-blue">Deployment.</span></h2>
-                 <p className="text-base text-muted-foreground font-light max-w-xl mx-auto mb-10">Join the thousands of global operatives who rely on WebShark for absolute market intelligence and technical dominance.</p>
-                 <button className="px-12 py-5 bg-primary-blue text-white font-black text-[11px] uppercase tracking-[0.3em] hover:bg-primary-blue/90 transition-all shadow-neon-blue flex items-center gap-4 mx-auto">
-                    Initialize Operation <ArrowRight className="h-4 w-4" />
-                 </button>
               </div>
            </div>
         </motion.div>

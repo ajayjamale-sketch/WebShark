@@ -27,6 +27,8 @@ import PricingPage from '../pages/public/PricingPage'
 import TestimonialsPage from '../pages/public/TestimonialsPage'
 import FAQPage from '../pages/public/FAQPage'
 import ProfilePage from '../pages/app/ProfilePage'
+import WorkspacesPage from '../pages/app/WorkspacesPage'
+import BillingSubscriptionsPage from '../pages/app/BillingSubscriptionsPage'
 
 // Footer Pages
 import NeuralAuditsPage from '../pages/public/tactical/NeuralAuditsPage'
@@ -37,6 +39,7 @@ import CompanyBriefPage from '../pages/public/hq/CompanyBriefPage'
 import CareersPage from '../pages/public/hq/CareersPage'
 import IntelBlogPage from '../pages/public/hq/IntelBlogPage'
 import SecureContactPage from '../pages/public/hq/SecureContactPage'
+import OpportunityPage from '../pages/public/hq/OpportunityPage'
 import SecurityProtocolPage from '../pages/public/legal/SecurityProtocolPage'
 import SystemTermsPage from '../pages/public/legal/SystemTermsPage'
 import PrivacyPolicyPage from '../pages/public/legal/PrivacyPolicyPage'
@@ -53,6 +56,7 @@ export function AppRouter() {
           <Route path='/pricing' element={<PricingPage />} />
           <Route path='/testimonials' element={<TestimonialsPage />} />
           <Route path='/faq' element={<FAQPage />} />
+          <Route path='/contact' element={<SecureContactPage />} />
           
           {/* Tactical Suite */}
           <Route path='/tactical/neural-audits' element={<NeuralAuditsPage />} />
@@ -63,6 +67,7 @@ export function AppRouter() {
           {/* HQ Operations */}
           <Route path='/hq/company-brief' element={<CompanyBriefPage />} />
           <Route path='/hq/careers' element={<CareersPage />} />
+          <Route path='/hq/opportunity' element={<OpportunityPage />} />
           <Route path='/hq/intel-blog' element={<IntelBlogPage />} />
           <Route path='/hq/secure-contact' element={<SecureContactPage />} />
 
@@ -87,6 +92,8 @@ export function AppRouter() {
             <Route path='audit-progress' element={<AuditProgressPage />} />
             <Route path='seo' element={<SEOIntelligencePage />} />
             <Route path='reports' element={<AnalyticsReportsPage />} />
+            <Route path='workspaces' element={<WorkspacesPage />} />
+            <Route path='billing' element={<BillingSubscriptionsPage />} />
             <Route path='profile' element={<ProfilePage />} />
           </Route>
         </Route>

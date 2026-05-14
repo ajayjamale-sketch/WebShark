@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Globe, Terminal, Activity } from 'lucide-react'
+import { toast } from 'sonner'
 import SharkLogo from './SharkLogo'
 
 export default function PublicFooter() {
@@ -17,7 +18,12 @@ export default function PublicFooter() {
             </p>
             <div className="flex items-center justify-center md:justify-start gap-4">
               {[Globe, Terminal, Activity].map((Icon, i) => (
-                <a key={i} href="#" className="h-12 w-12 border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-primary-blue hover:border-primary-blue/50 transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.1)] group/icon">
+                <a 
+                  key={i} 
+                  href="#" 
+                  onClick={(e) => { e.preventDefault(); toast.info('LINK_RESTRICTED', { description: 'Encrypted social channels available to verified operatives only.' }); }}
+                  className="h-12 w-12 border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-primary-blue hover:border-primary-blue/50 transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.1)] group/icon"
+                >
                   <Icon className="h-5 w-5 transition-transform group-hover/icon:scale-110" />
                 </a>
               ))}
@@ -62,7 +68,10 @@ export default function PublicFooter() {
                      placeholder="NODE_IDENTIFIER@SECURE.COM" 
                      className="flex-1 bg-background border border-border border-r-0 px-6 py-4 text-[10px] font-black uppercase tracking-widest focus:outline-none focus:border-primary-blue transition-all w-full"
                    />
-                   <button className="bg-primary-blue text-white px-6 flex items-center justify-center hover:bg-primary-blue/90 transition-all border border-primary-blue shadow-[0_0_15px_rgba(37,99,235,0.2)]">
+                   <button 
+                    onClick={() => toast.success('SUBSCRIPTION_INITIALIZED', { description: 'Establishing secure communication nodes...' })}
+                    className="bg-primary-blue text-white px-6 flex items-center justify-center hover:bg-primary-blue/90 transition-all border border-primary-blue shadow-[0_0_15px_rgba(37,99,235,0.2)]"
+                   >
                       <ArrowRight className="h-4 w-4" />
                    </button>
                 </div>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { appNavigation } from '../constants/navigation'
+import { appNavigation, adminNavigation, agencyNavigation, seoNavigation } from '../constants/navigation'
+import { useAuth } from '../context/AuthContext'
 import { useAppContext } from '../context/AppContext'
 import { CommandPalette } from '../components/common/CommandPalette'
 import { AIChatWidget } from '../components/common/AIChatWidget'
@@ -13,9 +14,21 @@ import SharkLogo from '../components/common/SharkLogo'
 import { cn } from '../utils/cn'
 
 export function AppLayout() {
+  const { user } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
   const { setIsCommandOpen } = useAppContext()
   const location = useLocation()
+
+  const getNavItems = () => {
+    switch (user?.role) {
+      case 'admin': return adminNavigation
+      case 'agency': return agencyNavigation
+      case 'seo': return seoNavigation
+      default: return appNavigation
+    }
+  }
+
+  const navItems = getNavItems()
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -67,7 +80,7 @@ export function AppLayout() {
                 </Button>
               </div>
               <nav className='space-y-1'>
-                {appNavigation.map((item) => (
+                {navItems.map((item) => (
                   <NavLink
                     key={item.to}
                     to={item.to}
